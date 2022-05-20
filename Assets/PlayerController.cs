@@ -17,15 +17,25 @@ public class PlayerController : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Handle_Look() { }
+    private void Handle_Movement()
     {
-        
+        float moveX = Input.GetAxisRaw("Horizontal");
+    }
+    private void Handle_Shooting() { }
+    private void Handle_Jumping() { }
+
+    // FixedUpdate is called 50 times per second
+    void FixedUpdate()
+    {
+        Handle_Movement();    
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Handle_Look();
+        Handle_Jumping();
+        Handle_Shooting();
     }
 }
