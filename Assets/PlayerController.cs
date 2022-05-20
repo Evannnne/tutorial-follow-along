@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float Health = 100;
+    public float GunDamage = 20;
+    public float ViewRotationSensitivty = 4;
+    public float MoveSpeed = 4;
+    public float SprintModifier = 2;
+    public float JumpVelocity = 5;
+    public float ShootingForce = 100;
+
     private CapsuleCollider m_collider;
     private Rigidbody m_rigidbody;
     private Camera m_camera;
@@ -21,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private void Handle_Movement()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        Vector3 movement = new Vector3(moveX, 0, moveZ).normalized;
     }
     private void Handle_Shooting() { }
     private void Handle_Jumping() { }
