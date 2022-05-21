@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
         movement = transform.TransformVector(movement);
 
         movement.y = m_rigidbody.velocity.y;
+
+        m_rigidbody.velocity = movement;
     }
     private void Handle_Shooting() { }
     private void Handle_Jumping() { }
