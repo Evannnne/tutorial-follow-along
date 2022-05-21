@@ -64,7 +64,20 @@ public class PlayerController : MonoBehaviour
         m_rigidbody.velocity = movement;
     }
     private void Handle_Shooting() { }
-    private void Handle_Jumping() { }
+    private void Handle_Jumping()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            float checkRange = m_collider.bounds.extents.y + 0.25f;
+
+            if(Physics.Raycast(transform.position, Vector3.down, out _, checkRange))
+            {
+                Vector3 v = m_rigidbody.velocity;
+                v.y = JumpVelocity;
+                m_rigidbody.velocity = v;
+            }
+        }
+    }
 
     // FixedUpdate is called 50 times per second
     void FixedUpdate()
