@@ -25,7 +25,25 @@ public class PlayerController : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    private void Handle_Look() { }
+    private void Handle_Look()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X");
+        float mouseY = Input.GetAxisRaw("Mouse Y");
+
+        float rotationX = mouseX * ViewRotationSensitivty;
+        float rotationY = mouseY * ViewRotationSensitivty;
+
+        Vector3 euler = m_camera.transform.localEulerAngles;
+        euler.x += rotationY * -1;
+
+        if (euler.x > 180) euler.x -= 360;
+        if (euler.x < -180) euler.x += 360;
+        euler.x = Mathf.Clamp(euler.x, -90, 90);
+
+        m_camera.transform.localEulerAngles = euler;
+
+        transform.Rotate(Vector3.up * rotationX);
+    }
     private void Handle_Movement()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -34,7 +52,7 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = new Vector3(moveX, 0, moveZ).normalized;
         movement *= MoveSpeed;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             movement *= SprintModifier;
         }
