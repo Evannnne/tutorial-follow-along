@@ -32,6 +32,16 @@ public class PlayerController : MonoBehaviour
         float moveZ = Input.GetAxisRaw("Vertical");
 
         Vector3 movement = new Vector3(moveX, 0, moveZ).normalized;
+        movement *= MoveSpeed;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            movement *= SprintModifier;
+        }
+
+        movement = transform.TransformVector(movement);
+
+        movement.y = m_rigidbody.velocity.y;
     }
     private void Handle_Shooting() { }
     private void Handle_Jumping() { }
