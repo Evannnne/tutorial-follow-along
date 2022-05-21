@@ -63,7 +63,22 @@ public class PlayerController : MonoBehaviour
 
         m_rigidbody.velocity = movement;
     }
-    private void Handle_Shooting() { }
+    private void Handle_Shooting()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(m_camera.transform.position, m_camera.transform.forward, out hit, 1000))
+            {
+                if(hit.rigidbody != null)
+                {
+                    hit.rigidbody.AddForceAtPosition(m_camera.transform.forward * ShootingForce, hit.point, ForceMode.Impulse);
+                }
+
+                hit.collider.gameObject.BroadcastMessage("Hit", SendMessageOptions.DontRequireReceiver);
+            }
+        }
+    }
     private void Handle_Jumping()
     {
         if (Input.GetKeyDown(KeyCode.Space))
